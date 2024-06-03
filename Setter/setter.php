@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 
 /*
 Plugin Name: Image SEO Setter
-Plugin URI: https://github.com/nothussainrana/File-Renaming-on-upload-fork
+Plugin URI: https://github.com/nothussainrana/WPImageSEOSetter
 Description: Customised renaming on upload for image files and setting of alt_text, description, caption, title.
 Version: 0.0.2
 Author: nothussainrana
@@ -43,7 +43,7 @@ function custom_filename($filename) {
 	$post_id = get_parent_post_id();
 	$path_info = pathinfo($filename);
 
-	if($post_id != "0"){
+	if($post_id != "0" & wp_get_post_terms( $post_id, 'product_cat' ) !== null ){
 		$terms = wp_get_post_terms($post_id, 'product_cat');
 		$categories = array();
 
@@ -64,7 +64,7 @@ function custom_filename($filename) {
 function custom_image_title($data) {
 	$post_id = get_parent_post_id();
 
-	if($post_id != "0"){
+	if($post_id != "0" & wp_get_post_terms( $post_id, 'product_cat' ) !== null ){
 		$terms = wp_get_post_terms($post_id, 'product_cat');
 		$categories = array();
 
@@ -79,14 +79,14 @@ function custom_image_title($data) {
 
 		$data['post_excerpt'] = strtoupper($product_name);
 
-		//$data['post_content'] = "this is the description;
+		//$data['post_content'] = "this is the description";
 	}
     return $data;
 }
 
 function custom_image_alt_text($attachment_id){
 	$post_id = get_parent_post_id();
-	if($post_id != "0"){
+	if($post_id != "0" & wp_get_post_terms( $post_id, 'product_cat' ) !== null ){
 		$terms = wp_get_post_terms($post_id, 'product_cat');
 		$categories = array();
 
